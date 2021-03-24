@@ -10,8 +10,7 @@ def get_list(file):
         raise ValueError("Fichero vacío")
 
     f.seek(0)
-    for line in f:
-        #if line == "":        
+    for line in f:      
         for word in line.split(" "):
             if not word in res[len(word)]:
                 res[len(word)].append(word)
