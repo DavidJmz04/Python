@@ -2,18 +2,6 @@ import unittest
 from libro import *
 from autor import *
 
-def mas_antiguo(lista, anyo):
-    
-    if anyo < 1900 or anyo > 2021:
-        raise ValueError("El año no es válido")
-
-    res= []
-    for libro in lista:
-        if libro.get_anyo() <= anyo:
-            res.append(libro.get_titulo())
-
-    return res
-
 class Pruebas(unittest.TestCase):
     def test_value_error(self):
         lista= [Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves1",1932),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves2",1950),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves3",1960),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves4",2020),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves5",2000)]
@@ -35,12 +23,3 @@ class Pruebas(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-#------------main-------------
-lista= [Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves1",1932),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves2",1950),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves3",1960),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves4",2020),Libro(Autor(1,"Edgar", "Allan Poe"),"Blancanieves5",2000)]
-print(mas_antiguo(lista, 2001))
-
-
-
-
-
