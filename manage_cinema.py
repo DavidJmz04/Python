@@ -18,9 +18,10 @@ class Cinema:
           - Cada elemento de la lista representa una fila de butacas, empezando por la fila 0 que esta en la posicion 0.
           - Cada fila tiene un diccionario para representar las butacas de esa fila.
           - Las claves del diccionario son cada una de las butacas de esa fila (1, 2, 3, etc.).
-        """        
-        row = { i : None for i in range(1, self.__seats_per_row+1) }        
+        """  
+        # row = { i : None for i in range(1, self.__seats_per_row+1) }      
         for j in range(1, self.__rows+1):
+            row = { i : None for i in range(1, self.__seats_per_row+1) }#Lo creamos en cada fila (Sobreescribimos)
             self.__seating.append(row)
         
     def print_seating(self):
@@ -39,16 +40,18 @@ class Cinema:
         if self.__seating[row][seat] is None:
             self.__seating[row][seat] = "occupied"
 
-    def count_free_seats(self,rows_seats,total):
+    def count_free_seats(self,rows_seats):
         """
         Calcula la cantidad de butacas libres que hay en una lista
         Args:
             rows_seats: lista de butacas a buscar
             total: valor inicial donde se acumulará el total
         """
+        total = 0 #Esto lo hacías en el main y se lo pasabas por parámetro, no tiene sentido ya que ese total siempre va a ser 0 y deberías de declararlo aquí.
         for row, seat in rows_seats:
             if self.__seating[row][seat] == None:
                 total+=1
+        return total #No devuelves total entonces total siempre va a ser 0
 
 #------------------------------------------- MAIN -----------------------------------------------
 cinema = Cinema(rows=10, seats_per_row=8)
@@ -58,13 +61,15 @@ print("------------- Error 1 -----------------")
 cinema.create_cinema_seating()
 cinema.book_seat(2,4)
 cinema.print_seating()
+"""Esto ocurre porque estás colocando el mismo diccionario en las filas, es decir, tienes siempre la misma fila. La solución consiste en crear un diccionario diferente para cada fila."""
 
 #ERROR 2: le paso la lista de "seats" donde debería haber 2 libres y me dice que hay 0.
 print("\n------------- Error 2 -----------------")
 seats = [(2,4), (3,1), (5,2)]
-total = 0
-cinema.count_free_seats(seats,total)
+#total= 0
+total= cinema.count_free_seats(seats)
 print("total: "+str(total))
+"""No devuelves total, entonces total siempre va a ser 0 ya que lo estabas estableciendo a 0 anteriormente y no lo cambiabas."""
 
 #ERROR 3: quiero modificar la butaca (2,4) de la lista anterior para que sea la (3,4) y no me deja.
 print("\n------------- Error 3 -----------------")
@@ -72,4 +77,3 @@ seats[0][1]=3
 total = 0
 cinema.count_free_seats(seats,total)
 print("total: "+str(total))
-        
